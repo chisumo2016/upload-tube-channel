@@ -20,4 +20,10 @@ class Channel extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    //Get route key name
+    public  function  getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
