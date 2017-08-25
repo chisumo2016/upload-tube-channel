@@ -57,12 +57,19 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('AWS_KEY'),
-            'secret' => env('AWS_SECRET'),
-            'region' => env('AWS_REGION'),
+            'key' => env('S3_KEY'),
+            'secret' => env('S3_SECRET'),
+            'region' => env('us-east-2'),
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        's3_images' => [
+            'driver' => 's3',
+            'key' => env('S3_KEY'),
+            'secret' => env('S3_SECRET'),
+            'region' => env('us-east-2'),
+            'bucket' => env('images.chisumotube.com'),
+        ],
     ],
 
 ];
