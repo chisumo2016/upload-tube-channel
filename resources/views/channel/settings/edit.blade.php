@@ -9,7 +9,7 @@
 
                     <div class="panel-body">
 
-                        <form action="/channel/{{ $channel->slug }}/edit" method="post">
+                        <form action="/channel/{{ $channel->slug }}/edit" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             {{ method_field('PUT') }}
 
@@ -25,7 +25,6 @@
                                     </span>
                                 @endif
                             </div>
-
 
 
                             <div class="form-group{{ $errors->has('slug') ? ' has-error' : '' }}">
@@ -57,6 +56,13 @@
                                         <strong>{{ $errors->first('description') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="image" class=" control-label">Channel Image </label>
+                                <input type="file" name="image" id="image">
+
                             </div>
 
                             <button class="btn btn-primary" type="submit">Update</button>

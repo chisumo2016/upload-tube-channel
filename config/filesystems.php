@@ -63,7 +63,7 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
-        's3_images' => [
+        's3images' => [
             'driver' => 's3',
             'key' => env('S3_KEY'),
             'secret' => env('S3_SECRET'),
