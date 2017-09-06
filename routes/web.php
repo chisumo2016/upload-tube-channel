@@ -20,9 +20,14 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('upload',    'VideoUploadController@index')->name('upload');
 
     Route::get('/channel/{channel}/edit', 'ChannelSettingsController@edit')->name('edit');
     Route::put('/channel/{channel}/edit', 'ChannelSettingsController@update');
+
+    //Upload Video
+
+
 
 
 });
