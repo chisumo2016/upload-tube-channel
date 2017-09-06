@@ -9,6 +9,7 @@ use App\Http\Requests\ChannelUpdateRequest;
 
 
 
+
 class ChannelSettingsController extends Controller
 {
     //
@@ -27,20 +28,21 @@ class ChannelSettingsController extends Controller
          $channel->update([
              'name' => $request -> name,
              'slug' =>$request ->slug,
-             'description' => $request->description
+             'description' => $request->description,
+
 
          ]);
 
          //Upload image
 
         if ($request->file('image')){
+
             //Move to temp location  b
+            $request->file('image')->move(storage_path(). '/uploads/', $fileId = uniqid(true));
 
-            $request->file('image')->move(storage_path(). '/uploads', $fileId = uniqid(true));
-
-            $this->dispatch(new UploadImage($channel, $fileId));
+            $this->dispatch(new UploadImage($channel, $fileId));//Dispatch the job
         }
-         return redirect()->to("/channel/{$channel->slug}/edit");
+             return redirect()->to("/channel/{$channel->slug}/edit");
          //die('update');
     }
 }

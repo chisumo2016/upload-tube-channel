@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 use App\Models\Channel;
+use File;
 use Storage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -20,7 +21,7 @@ class UploadImage implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($channel , $fileId)
+    public function __construct($channel , $fileId )
     {
         //
         $this->channel = $channel;
@@ -37,12 +38,24 @@ class UploadImage implements ShouldQueue
         //
         //Get Image
         $path = storage_path() . '/uploads/' . $this->fileId;
-        $fileName = $this->fileId . '.jpg';   //resize
+        $fileName = $this->fileId . '.png';   //resize
 
-        Storage::disk('s3images')->put('/profile/' . $fileName, fopen($path, 'r+'));
+         if (Storage::disk('s3images')->put('profile/' . $fileName, fopen($path, 'r+'))){
 
+             File::delete($path);
+         }
 
+        $this->channel->image_filename = $fileName;
+         $this->channel->save();
+
+        //get the image
+        //resize
+        //upload to s3
         //delete file
         //update channel image
+
+//        if (!empty($this->channel)) {
+//            $this->channel->image_filename = $fileName;
+//        }
     }
 }
